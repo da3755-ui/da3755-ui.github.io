@@ -58,7 +58,7 @@ function toggleFullScreen(){
 }
 function windowResized(){
   print("resized to"+windowWidth+","+windowHeight);
-  resizeCanvas(windowWidth, windowHeight);
+  resizeCanvas(window.innerWidth, window.innerHeight);
 
     buttonInstruction.position(width/2.45, height/1.2);
     buttonTryAgain.position(0.437*width, height-300);
@@ -68,7 +68,7 @@ function windowResized(){
     instructions.size(width,height)
 }
 function setup(){
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(window.innerWidth, window.innerHeight);
   noSmooth();//to reduce potential blur
   print(help);
 
