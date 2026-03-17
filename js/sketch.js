@@ -58,17 +58,24 @@ function toggleFullScreen(){
 }
 function windowResized(){
   print("resized to"+windowWidth+","+windowHeight);
-  resizeCanvas(window.innerWidth, window.innerHeight);
+  resizeCanvas(windowWidth, windowHeight);
 
-    buttonInstruction.position(width/2.45, height/1.2);
-    buttonTryAgain.position(0.437*width, height-300);
-    buttonSkip.position(0.5*width, height-100);
-    buttonStart.position(width/2.2, height-200);
+    buttonInstruction.position(width/2 - 300, height/1.2);
+    buttonTryAgain.position(width/2 - 300, height-300);
+    buttonStart.position(width/2 - 300, height-150);
     instructions.position(0,0);
-    instructions.size(width,height)
+    instructions.size(width,height);
+
+    firstQuestion[0].updatePosition();
+    secondQuestion[0].updatePosition();
+    thirdQuestion[0].updatePosition();
+    fourthQuestion[0].updatePosition();
+    fifthQuestion[0].updatePosition();
+    sixthQuestion[0].updatePosition();
+    seventhQuestion[0].updatePosition();
 }
 function setup(){
-  createCanvas(window.innerWidth, window.innerHeight);
+  createCanvas(windowWidth, windowHeight);
   noSmooth();//to reduce potential blur
   print(help);
 
@@ -77,24 +84,34 @@ function setup(){
 
 //------create instructions button------
 buttonInstruction=createButton("INSTRUCTIONS");
-buttonInstruction.position(width/2.45, height/1.2);
-buttonInstruction.style('font-size', '100px');
+buttonInstruction.size(600, 120);
+buttonInstruction.position(width/2 - 300, height/1.2);
+buttonInstruction.style('font-size', '20px');
+buttonInstruction.style('background-color', 'black');
+buttonInstruction.style('color', 'white');
+buttonInstruction.style('border', 'none');
 buttonInstruction.style('font-family', 'startFont');
+buttonInstruction.style('text-align', 'center');
 buttonInstruction.mousePressed(transitionToInstructions);//trigger the insructions function when the button is pressed
 buttonInstruction.hide();
 
 buttonTryAgain=createButton("RESTART");
-buttonTryAgain.style('font-size', '100px');
+buttonTryAgain.size(600, 120);
+buttonTryAgain.style('font-size', '20px');
+buttonTryAgain.style('background-color', 'black');
+buttonTryAgain.style('color', 'white');
+buttonTryAgain.style('border', 'none');
+buttonTryAgain.style('text-align', 'center');
 buttonTryAgain.hide();
 
-buttonSkip=createButton("SKIP");
-buttonSkip.style('font-size', '100px');
-buttonSkip.style('font-family', 'startFont');
-buttonSkip.mousePressed(skipInstructions);
-buttonSkip.hide();
-
 buttonStart=createButton("START");
-buttonStart.style('font-size', '100px');
+buttonStart.size(600, 120);
+buttonStart.style('font-size', '20px');
+buttonStart.style('background-color', 'black');
+buttonStart.style('color', 'white');
+buttonStart.style('border', 'none');
+buttonStart.style('text-align', 'center');
+buttonStart.position(width/2 - 300, height-150);
 buttonStart.mousePressed(startGame);
 buttonStart.hide()
 
@@ -144,11 +161,11 @@ function drawStartScreen(){
   textAlign(CENTER, CENTER);
 
   fill('white');
-  textSize(250);
+  textSize(88);
   textFont(startFont);
   text("STAR WARS", width/2, height/4);
 
-  textSize(170);
+  textSize(42);
   textFont(titleFont);
   text("PREVENT THE FALL OF ANAKIN", width/2, height/2.5);
 
@@ -156,7 +173,7 @@ function drawStartScreen(){
   strokeWeight(10);
   line(0, height*0.45, width, height*0.45);
 
-  textSize(75);
+  textSize(18);
   noStroke();
   text("Press f (possibly twice) to toggle fullscreen", width/2, height/1.25);
 
@@ -171,6 +188,7 @@ function drawInstructions(){
   background('black');
   buttonInstruction.hide();
   buttonStart.show();
+  buttonStart.position(width/2 - 300, height - 150);
 
   soundtrack.stop();
 
@@ -263,10 +281,11 @@ function transitionToHappyEnding(){
 function drawHappyEnding(){
   image(happyEndingImage,0,0,width,height);
   thirdQuestion[0].hide();
-  textSize(120);
+  textSize(42);
   fill('black');
   text("ENDING\n Anakin now live happily in Naboo with Padme and their children \nwhile instability is still on the rise in the galaxy...\n \n \n \n \n \nWould you like to try again?", width/2, height/3);
   buttonTryAgain.show();
+  buttonTryAgain.position(width/2 - 300, height-300);
   buttonTryAgain.mousePressed(transitionToRestart);
 }
 
@@ -340,9 +359,10 @@ function drawSithEnding(){
   sixthQuestion[0].hide();
   seventhQuestion[0].hide();
   image(sithEndingImage,0,0,width,height);
-  textSize(120);
+  textSize(42);
   text("ENDING\n You could not prevent Anakin from turning to the Dark Side...\n \nWould you like to try again?", width/2, height/5);
   buttonTryAgain.show();
+  buttonTryAgain.position(width/2 - 300, height-300);
   buttonTryAgain.mousePressed(transitionToRestart);
 }
 
@@ -358,9 +378,10 @@ function transitionToDeathEnding(){
 function drawDeathEnding(){
   fifthQuestion[0].hide();
   image(deathEndingImage,0,0,width,height);
-  textSize(120);
+  textSize(42);
   fill('black');
   text(" \nENDING\n Anakin and Master Windu defeated the Chancellor\n... at a cost \nAnakin died while fighting alongside Master Windu\n \nWould you like to try again?", width/2, height/5);
   buttonTryAgain.show();
+  buttonTryAgain.position(width/2 - 300, height-300);
   buttonTryAgain.mousePressed(transitionToRestart);
 }
